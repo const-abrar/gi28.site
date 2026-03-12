@@ -20,11 +20,12 @@
       --burgundy:    #5C0120;
       --cream:       #f0ede6;
       --gold:        #D4AF37;
+      --teal:        #0d9488;
+      --purple:      #7e22ce;
       --font-serif:  'Playfair Display', Georgia, serif;
       --font-sans:   'DM Sans', system-ui, -apple-system, sans-serif;
       --radius-md:   0.75rem;
       --radius-lg:   1.25rem;
-      --glass-bg:    rgba(26, 37, 23, 0.75);
       --glass-border: rgba(92, 1, 32, 0.25);
     }
 
@@ -70,7 +71,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 900px;
+      max-width: 950px;
       background: rgba(240, 237, 230, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -83,51 +84,16 @@
       gap: 30px;
     }
 
-    /* Desktop Layout Grid */
     @media (min-width: 800px) {
-      .error-container {
-        flex-direction: row;
-        align-items: center;
-      }
-      .error-header {
-        flex: 1;
-        text-align: left;
-      }
-      .game-section {
-        flex: 1.2;
-        margin-top: 0;
-        padding-top: 0;
-        border-top: none;
-        border-left: 1px solid rgba(92, 1, 32, 0.15);
-        padding-left: 30px;
-      }
+      .error-container { flex-direction: row; align-items: center; }
+      .error-header { flex: 1; text-align: left; }
+      .game-section { flex: 1.3; border-left: 1px solid rgba(92, 1, 32, 0.15); padding-left: 30px; }
     }
 
     .error-header { text-align: center; }
-    @media (min-width: 800px) { .error-header { text-align: left; } }
-
-    .error-header h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(4rem, 8vw, 6rem);
-      color: var(--burgundy);
-      line-height: 1;
-      margin-bottom: 10px;
-      text-shadow: 0 4px 10px rgba(92, 1, 32, 0.2);
-    }
-
-    .error-header h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      color: var(--deep-olive);
-      margin-bottom: 20px;
-    }
-
-    .error-header p {
-      font-size: 1.1rem;
-      color: rgba(26, 37, 23, 0.7);
-      margin-bottom: 30px;
-      line-height: 1.6;
-    }
+    .error-header h1 { font-family: var(--font-serif); font-size: clamp(4rem, 8vw, 6rem); color: var(--burgundy); line-height: 1; margin-bottom: 10px; }
+    .error-header h2 { font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 2rem); color: var(--deep-olive); margin-bottom: 20px; }
+    .error-header p { font-size: 1.1rem; color: rgba(26, 37, 23, 0.7); margin-bottom: 30px; line-height: 1.6; }
 
     .btn {
       display: inline-flex;
@@ -139,49 +105,45 @@
       font-size: 1rem;
       font-weight: 600;
       border-radius: 8px;
-      text-decoration: none;
       cursor: pointer;
       border: 1px solid transparent;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       white-space: nowrap;
+      text-decoration: none;
     }
 
     .btn:active { transform: scale(0.95); }
-
     .btn--primary { background: var(--deep-olive); color: var(--sage-light); box-shadow: 0 4px 15px rgba(26, 37, 23, 0.2); }
     .btn--primary:hover { background: var(--burgundy); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(92, 1, 32, 0.3); }
-    
     .btn--secondary { background: transparent; color: var(--burgundy); border-color: var(--burgundy); }
     .btn--secondary:hover { background: rgba(92, 1, 32, 0.05); transform: translateY(-3px); }
 
+    /* Input Field */
+    .player-input {
+      width: 100%;
+      max-width: 250px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      color: var(--deep-olive);
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid rgba(172, 200, 162, 0.5);
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .player-input:focus { border-color: var(--burgundy); box-shadow: 0 0 10px rgba(92, 1, 32, 0.2); }
+    .player-input::placeholder { color: rgba(26, 37, 23, 0.4); }
+
     /* Game Section */
     .game-section { width: 100%; }
+    .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .game-title { font-family: var(--font-serif); font-weight: 700; color: var(--deep-olive); font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+    .game-stats { font-weight: 600; color: var(--burgundy); background: rgba(92, 1, 32, 0.1); padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid rgba(92, 1, 32, 0.2); }
 
-    .game-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .game-title {
-      font-family: var(--font-serif);
-      font-weight: 700;
-      color: var(--deep-olive);
-      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-    }
-
-    .game-stats {
-      font-weight: 600;
-      color: var(--burgundy);
-      background: rgba(92, 1, 32, 0.1);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      border: 1px solid rgba(92, 1, 32, 0.2);
-    }
-
-    /* Responsive Canvas Container */
+    /* Canvas Container */
     #game-container {
       position: relative;
       width: 100%;
@@ -190,28 +152,17 @@
       overflow: hidden;
       border: 2px solid var(--glass-border);
       box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 10px 20px rgba(26, 37, 23, 0.2);
-      /* Fluid aspect ratio: tall on mobile, wide on desktop */
       aspect-ratio: 3/4; 
     }
+    @media (min-width: 600px) { #game-container { aspect-ratio: 16/10; } }
 
-    @media (min-width: 600px) {
-      #game-container { aspect-ratio: 16/10; }
-    }
-
-    canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      touch-action: none; /* Crucial for mobile gaming */
-      -webkit-tap-highlight-color: transparent;
-    }
+    canvas { display: block; width: 100%; height: 100%; touch-action: none; -webkit-tap-highlight-color: transparent; }
 
     .game-overlay {
       position: absolute;
       inset: 0;
       background: rgba(26, 37, 23, 0.85);
       backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -222,35 +173,15 @@
       text-align: center;
       padding: 20px;
     }
+    .game-overlay.hidden { opacity: 0; pointer-events: none; }
+    .game-overlay h3 { font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 10px; color: var(--sage-light); }
+    .game-overlay p { margin-bottom: 25px; font-size: 1.1rem; color: rgba(240, 237, 230, 0.8); }
 
-    .game-overlay.hidden { 
-      opacity: 0; 
-      pointer-events: none; 
-    }
+    .legend { display: flex; gap: 10px; margin-bottom: 25px; font-size: 0.8rem; justify-content: center; flex-wrap: wrap; max-width: 300px; }
+    .legend-item { display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 4px;}
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
     
-    .game-overlay h3 { 
-      font-family: var(--font-serif); 
-      font-size: clamp(1.8rem, 4vw, 2.5rem); 
-      margin-bottom: 10px; 
-      color: var(--sage-light); 
-    }
-    
-    .game-overlay p { 
-      margin-bottom: 25px; 
-      font-size: 1.1rem; 
-      color: rgba(240, 237, 230, 0.8);
-    }
-
-    .legend {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 25px;
-      font-size: 0.85rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .legend-item { display: flex; align-items: center; gap: 5px; }
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .error-msg { color: #ff6b6b; font-size: 0.85rem; margin-top: -15px; margin-bottom: 15px; display: none; font-weight: 500;}
 
   </style>
 </head>
@@ -283,22 +214,30 @@
       <div id="game-container">
         <div id="start-screen" class="game-overlay">
           <h3>Mini Game</h3>
-          <p>Drag the basket. Catch followers. Avoid Spam Bots!</p>
+          <p style="margin-bottom: 15px;">Catch followers & power-ups. Avoid Spam Bots!</p>
           
           <div class="legend">
             <div class="legend-item"><div class="dot" style="background: var(--sage-light);"></div> +1</div>
-            <div class="legend-item"><div class="dot" style="background: var(--gold);"></div> +5 Premium</div>
+            <div class="legend-item"><div class="dot" style="background: var(--gold);"></div> +5 Prem</div>
             <div class="legend-item"><div class="dot" style="background: var(--burgundy);"></div> -3 Bot</div>
+            <div class="legend-item"><div class="dot" style="background: var(--teal);"></div> +5 Secs</div>
+            <div class="legend-item"><div class="dot" style="background: var(--purple);"></div> 2x Score</div>
           </div>
+
+          <input type="text" id="player-name" class="player-input" placeholder="Enter your name..." autocomplete="off" maxlength="20"/>
+          <div id="name-error" class="error-msg">Please enter your name to play!</div>
 
           <button id="start-btn" class="btn btn--primary" style="background: var(--burgundy); border-color: var(--burgundy);">Play Now</button>
         </div>
 
         <div id="end-screen" class="game-overlay hidden">
-          <h3>Time's Up!</h3>
-          <p>You secured <strong id="final-score" style="color:var(--gold); font-size: 1.5rem;">0</strong> points!</p>
+          <h3>Game Over!</h3>
+          <p>Well done, <span id="display-name" style="color:var(--sage-light); font-weight:bold;"></span>!</p>
+          <p style="margin-top:-15px;">You secured <strong id="final-score" style="color:var(--gold); font-size: 1.5rem;">0</strong> points!</p>
+          <p style="font-size: 0.9rem; opacity: 0.8;">Your certificate has auto-downloaded!</p>
+          
           <div style="display:flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-            <button id="download-btn" class="btn btn--primary">Get Certificate</button>
+            <button id="download-btn" class="btn btn--primary">Download Again</button>
             <button id="restart-btn" class="btn btn--secondary" style="color:var(--sage-light); border-color:var(--sage-light);">Play Again</button>
           </div>
         </div>
@@ -318,6 +257,8 @@
     const endScreen = document.getElementById('end-screen');
     const timeDisplay = document.getElementById('timeDisplay');
     const scoreDisplay = document.getElementById('scoreDisplay');
+    const playerNameInput = document.getElementById('player-name');
+    const nameError = document.getElementById('name-error');
     
     // Variables
     let logicalWidth, logicalHeight;
@@ -325,19 +266,21 @@
     let isPlaying = false;
     let score = 0;
     let timeLeft = 60;
+    let playerName = "Player";
     
+    // Power-up States
+    let frenzyMultiplier = 1;
+    let frenzyTimer = 0; // tracking frames for visual effect
+
     // Entities
     const basket = { 
-      x: 0, 
-      targetX: 0, // Used for smooth lerping
-      y: 0, 
-      width: 90, 
-      height: 25, 
-      color: '#c3d9bb' // Sage Light
+      x: 0, targetX: 0, y: 0, width: 90, height: 25, 
+      color: '#c3d9bb', glow: 'transparent'
     };
     
     let items = [];
     let particles = [];
+    let floatingTexts = [];
 
     // --- DPI-Aware Responsive Canvas Setup ---
     function resizeCanvas() {
@@ -346,120 +289,105 @@
       
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      
       logicalWidth = rect.width;
       logicalHeight = rect.height;
-      
       ctx.scale(dpr, dpr);
 
-      // Keep basket grounded
       basket.y = logicalHeight - basket.height - 10;
       if(!isPlaying && basket.targetX === 0) {
         basket.targetX = logicalWidth / 2 - basket.width / 2;
         basket.x = basket.targetX;
       }
     }
-
     window.addEventListener('resize', resizeCanvas);
-    resizeCanvas(); // Init
+    resizeCanvas();
 
     // --- Smooth Input Handling ---
     function setTarget(clientX) {
       const rect = canvas.getBoundingClientRect();
-      // Calculate touch point relative to logical width
       let x = (clientX - rect.left) - (basket.width / 2);
-      
-      // Clamp
       if (x < 0) x = 0;
       if (x + basket.width > logicalWidth) x = logicalWidth - basket.width;
       basket.targetX = x;
     }
 
     canvas.addEventListener('mousemove', (e) => setTarget(e.clientX));
-    canvas.addEventListener('touchmove', (e) => {
-      e.preventDefault(); 
-      setTarget(e.touches[0].clientX);
-    }, { passive: false });
-    canvas.addEventListener('touchstart', (e) => {
-      setTarget(e.touches[0].clientX);
-    }, { passive: true });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); setTarget(e.touches[0].clientX); }, { passive: false });
+    canvas.addEventListener('touchstart', (e) => { setTarget(e.touches[0].clientX); }, { passive: true });
 
     // --- Game Logic ---
     function spawnItem() {
       const radius = 16;
       const x = Math.random() * (logicalWidth - radius * 2) + radius;
       
-      // Speed scales up as time runs out
-      const speedMultiplier = 1 + ((60 - timeLeft) / 40);
+      const speedMultiplier = 1 + ((60 - timeLeft) / 35);
       let dy = (Math.random() * 2.5 + 2) * speedMultiplier; 
       
       const rand = Math.random();
       let type, color, points, symbol;
 
-      if (rand > 0.85) {
-        // Premium
+      if (rand > 0.93) {
+        type = 'time'; color = '#0d9488'; points = 0; symbol = '⏱'; dy *= 1.2;
+      } else if (rand > 0.88) {
+        type = 'frenzy'; color = '#7e22ce'; points = 0; symbol = '✨'; dy *= 1.2;
+      } else if (rand > 0.75) {
         type = 'premium'; color = '#D4AF37'; points = 5; symbol = '★'; dy *= 1.3;
-      } else if (rand > 0.65) {
-        // Spam Bot
-        type = 'bot'; color = '#5C0120'; points = -3; symbol = '☠';
+      } else if (rand > 0.55) {
+        type = 'bot'; color = '#5C0120'; points = -3; symbol = '☠'; dy *= 1.1;
       } else {
-        // Normal
         type = 'normal'; color = '#ACC8A2'; points = 1; symbol = '+';
       }
 
-      items.push({ x, y: -radius, radius: type==='premium'?12:radius, dy, type, color, points, symbol, wobble: Math.random() * Math.PI });
+      items.push({ x, y: -radius, radius: (type==='premium'||type==='frenzy')?13:radius, dy, type, color, points, symbol, wobble: Math.random() * Math.PI });
     }
 
     function createParticles(x, y, color) {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 12; i++) {
         particles.push({
-          x, y,
-          vx: (Math.random() - 0.5) * 6,
-          vy: (Math.random() - 0.5) * 6,
-          life: 1,
-          color
+          x, y, vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8, life: 1, color
         });
       }
     }
 
+    function createFloatingText(x, y, text, color) {
+      floatingTexts.push({ x, y, text, color, life: 1, vy: -1.5 });
+    }
+
     function drawBasket() {
-      // Lerp (smooth follow)
       basket.x += (basket.targetX - basket.x) * 0.15;
 
       ctx.fillStyle = basket.color;
-      ctx.shadowColor = basket.color;
-      ctx.shadowBlur = 10;
+      ctx.shadowColor = frenzyMultiplier > 1 ? '#7e22ce' : basket.color;
+      ctx.shadowBlur = frenzyMultiplier > 1 ? 20 : 10;
       
       ctx.beginPath();
       ctx.roundRect(basket.x, basket.y, basket.width, basket.height, 12);
       ctx.fill();
       
-      ctx.shadowBlur = 0; // Reset
+      ctx.shadowBlur = 0; 
       ctx.fillStyle = '#1A2517';
       ctx.font = 'bold 13px "DM Sans"';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('GI28', basket.x + basket.width/2, basket.y + basket.height/2);
+      ctx.fillText(frenzyMultiplier > 1 ? '2X SCORE!' : 'GI28', basket.x + basket.width/2, basket.y + basket.height/2);
     }
 
     function updateEntities() {
       // Items
       for (let i = 0; i < items.length; i++) {
         let f = items[i];
-        
-        // Wobble effect for bots
-        if(f.type === 'bot') f.x += Math.sin(f.wobble += 0.1) * 1.5;
+        if(f.type === 'bot') f.x += Math.sin(f.wobble += 0.15) * 2; // more erratic
 
-        // Draw
         ctx.fillStyle = f.color;
-        ctx.beginPath();
-        ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
-        ctx.fill();
+        if(f.type === 'frenzy' || f.type === 'time') {
+           ctx.shadowColor = f.color; ctx.shadowBlur = 10;
+        }
+        ctx.beginPath(); ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2); ctx.fill();
+        ctx.shadowBlur = 0;
         
         ctx.fillStyle = f.type === 'normal' ? '#1A2517' : '#fff';
         ctx.font = 'bold 14px "DM Sans"';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillText(f.symbol, f.x, f.y + 1);
 
         f.y += f.dy;
@@ -468,77 +396,105 @@
         if (f.y + f.radius > basket.y && f.y - f.radius < basket.y + basket.height &&
             f.x + f.radius > basket.x && f.x - f.radius < basket.x + basket.width) {
           
-          score += f.points;
           createParticles(f.x, f.y, f.color);
-          
-          // Flash effect on score
-          scoreDisplay.style.color = f.points < 0 ? 'red' : '#D4AF37';
-          setTimeout(() => scoreDisplay.style.color = '', 300);
+
+          if (f.type === 'time') {
+            timeLeft += 5;
+            createFloatingText(f.x, f.y, "+5 SECONDS", '#0d9488');
+            timeDisplay.style.color = '#0d9488';
+            setTimeout(() => timeDisplay.style.color = '', 500);
+          } else if (f.type === 'frenzy') {
+            frenzyMultiplier = 2;
+            frenzyTimer = 480; // approx 8 seconds at 60fps
+            createFloatingText(f.x, f.y, "FRENZY MODE!", '#7e22ce');
+            basket.color = '#e9d5ff'; // Light purple basket
+          } else {
+            let gained = f.points * (f.points > 0 ? frenzyMultiplier : 1);
+            score += gained;
+            let prefix = gained > 0 ? "+" : "";
+            createFloatingText(f.x, f.y, `${prefix}${gained}`, f.color);
+            
+            scoreDisplay.style.color = gained < 0 ? 'red' : (frenzyMultiplier > 1 ? '#7e22ce' : '#D4AF37');
+            setTimeout(() => scoreDisplay.style.color = '', 300);
+          }
           
           scoreDisplay.innerText = score;
+          timeDisplay.innerText = timeLeft;
           items.splice(i, 1);
           i--;
-        } 
-        else if (f.y - f.radius > logicalHeight) {
+        } else if (f.y - f.radius > logicalHeight) {
           items.splice(i, 1);
           i--;
+        }
+      }
+
+      // Frenzy Timer
+      if (frenzyMultiplier > 1) {
+        frenzyTimer--;
+        if (frenzyTimer <= 0) {
+          frenzyMultiplier = 1;
+          basket.color = '#c3d9bb'; // Back to sage
         }
       }
 
       // Particles
       for (let i = 0; i < particles.length; i++) {
         let p = particles[i];
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.life;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.fillStyle = p.color; ctx.globalAlpha = p.life;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2); ctx.fill();
         ctx.globalAlpha = 1;
+        p.x += p.vx; p.y += p.vy; p.vy += 0.2; p.life -= 0.04;
+        if (p.life <= 0) { particles.splice(i, 1); i--; }
+      }
 
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.2; // Gravity
-        p.life -= 0.04;
-
-        if (p.life <= 0) {
-          particles.splice(i, 1);
-          i--;
-        }
+      // Floating Texts
+      for (let i = 0; i < floatingTexts.length; i++) {
+        let ft = floatingTexts[i];
+        ctx.fillStyle = ft.color; ctx.globalAlpha = ft.life;
+        ctx.font = 'bold 16px "DM Sans"';
+        ctx.textAlign = 'center';
+        ctx.fillText(ft.text, ft.x, ft.y);
+        ctx.globalAlpha = 1;
+        ft.y += ft.vy; ft.life -= 0.02;
+        if (ft.life <= 0) { floatingTexts.splice(i, 1); i--; }
       }
     }
 
     function update() {
       if (!isPlaying) return;
-      
-      // Clear with slight trail effect
-      ctx.fillStyle = 'rgba(26, 37, 23, 0.4)';
+      ctx.fillStyle = 'rgba(26, 37, 23, 0.5)'; // Motion blur trail
       ctx.fillRect(0, 0, logicalWidth, logicalHeight);
-
       drawBasket();
       updateEntities();
-
       animationId = requestAnimationFrame(update);
     }
 
     function startGame() {
+      const nameVal = playerNameInput.value.trim();
+      if (!nameVal) {
+        nameError.style.display = 'block';
+        playerNameInput.focus();
+        return;
+      }
+      
+      nameError.style.display = 'none';
+      playerName = nameVal;
+      document.getElementById('display-name').innerText = playerName;
+
       startScreen.classList.add('hidden');
       endScreen.classList.add('hidden');
       
-      score = 0;
-      timeLeft = 60;
-      items = [];
-      particles = [];
+      score = 0; timeLeft = 60; items = []; particles = []; floatingTexts = [];
+      frenzyMultiplier = 1; basket.color = '#c3d9bb';
+      
       scoreDisplay.innerText = score;
       timeDisplay.innerText = timeLeft;
-      scoreDisplay.style.color = '';
-      
-      // Reset basket to finger position if already touching
       basket.x = basket.targetX;
       
       isPlaying = true;
       update();
 
-      spawnTimerId = setInterval(spawnItem, 650);
+      spawnTimerId = setInterval(spawnItem, 600);
       gameTimerId = setInterval(() => {
         timeLeft--;
         timeDisplay.innerText = timeLeft;
@@ -554,65 +510,61 @@
       
       document.getElementById('final-score').innerText = score;
       endScreen.classList.remove('hidden');
+
+      // Auto Download trigger!
+      setTimeout(generateCertificate, 500); 
     }
 
     // --- Premium Certificate Generator ---
     function generateCertificate() {
       const certCanvas = document.createElement('canvas');
       const cCtx = certCanvas.getContext('2d');
-      certCanvas.width = 1200;
-      certCanvas.height = 800;
+      certCanvas.width = 1200; certCanvas.height = 800;
 
-      // BG
-      cCtx.fillStyle = '#f0ede6';
-      cCtx.fillRect(0, 0, certCanvas.width, certCanvas.height);
-      
-      // Borders
-      cCtx.strokeStyle = '#5C0120';
-      cCtx.lineWidth = 15;
-      cCtx.strokeRect(30, 30, certCanvas.width - 60, certCanvas.height - 60);
-      cCtx.strokeStyle = '#ACC8A2';
-      cCtx.lineWidth = 4;
-      cCtx.strokeRect(50, 50, certCanvas.width - 100, certCanvas.height - 100);
+      // BG & Borders
+      cCtx.fillStyle = '#f0ede6'; cCtx.fillRect(0, 0, certCanvas.width, certCanvas.height);
+      cCtx.strokeStyle = '#5C0120'; cCtx.lineWidth = 15; cCtx.strokeRect(30, 30, certCanvas.width - 60, certCanvas.height - 60);
+      cCtx.strokeStyle = '#ACC8A2'; cCtx.lineWidth = 4; cCtx.strokeRect(50, 50, certCanvas.width - 100, certCanvas.height - 100);
 
       // Watermark
       cCtx.fillStyle = 'rgba(172, 200, 162, 0.15)';
-      cCtx.font = 'bold 300px "DM Sans"';
-      cCtx.textAlign = 'center';
-      cCtx.textBaseline = 'middle';
+      cCtx.font = 'bold 300px "DM Sans"'; cCtx.textAlign = 'center'; cCtx.textBaseline = 'middle';
       cCtx.fillText('GI28', certCanvas.width/2, certCanvas.height/2);
 
-      // Content
-      cCtx.fillStyle = '#1A2517';
-      cCtx.font = 'bold 50px "Playfair Display"';
-      cCtx.fillText('GI28 PREMIUM SMM PANEL', certCanvas.width / 2, 180);
+      // Header
+      cCtx.fillStyle = '#1A2517'; cCtx.font = 'bold 50px "Playfair Display"';
+      cCtx.fillText('GI28 DIGITAL MARKETPLACE', certCanvas.width / 2, 140);
 
-      cCtx.fillStyle = '#5C0120';
-      cCtx.font = 'bold 30px "DM Sans"';
-      cCtx.letterSpacing = "5px";
-      cCtx.fillText('OFFICIAL ACHIEVEMENT RECORD', certCanvas.width / 2, 250);
+      // Game Title
+      cCtx.fillStyle = '#5C0120'; cCtx.font = 'bold 32px "DM Sans"'; cCtx.letterSpacing = "4px";
+      cCtx.fillText('CATCH A FOLLOWER : OFFICIAL RECORD', certCanvas.width / 2, 210);
 
-      cCtx.fillStyle = '#1A2517';
-      cCtx.font = 'italic 36px "Playfair Display"';
-      cCtx.fillText('For exceptional reflexes traversing the digital void,', certCanvas.width / 2, 380);
-      cCtx.fillText('this certificate is proudly awarded for securing:', certCanvas.width / 2, 440);
+      // Description (Wrapped logic manually for layout)
+      cCtx.fillStyle = '#253520'; cCtx.font = '22px "DM Sans"';
+      cCtx.fillText('GI28 is the cheapest, fastest, and most secure digital services marketplace', certCanvas.width / 2, 280);
+      cCtx.fillText('for Instagram, YouTube, Telegram, and Facebook growth.', certCanvas.width / 2, 315);
 
-      cCtx.fillStyle = '#D4AF37';
-      cCtx.font = 'bold 120px "DM Sans"';
-      cCtx.shadowColor = "rgba(0,0,0,0.2)";
-      cCtx.shadowOffsetX = 4; cCtx.shadowOffsetY = 4;
-      cCtx.fillText(`${score} POINTS`, certCanvas.width / 2, 580);
-      cCtx.shadowColor = "transparent"; // reset
+      // Player Name Award
+      cCtx.fillStyle = '#1A2517'; cCtx.font = 'italic 34px "Playfair Display"';
+      cCtx.fillText('This certificate is proudly presented to:', certCanvas.width / 2, 420);
+
+      cCtx.fillStyle = '#5C0120'; cCtx.font = 'bold 65px "Playfair Display"';
+      cCtx.fillText(playerName.toUpperCase(), certCanvas.width / 2, 500);
+
+      // Score
+      cCtx.fillStyle = '#D4AF37'; cCtx.font = 'bold 100px "DM Sans"';
+      cCtx.shadowColor = "rgba(0,0,0,0.2)"; cCtx.shadowOffsetX = 4; cCtx.shadowOffsetY = 4;
+      cCtx.fillText(`${score} POINTS`, certCanvas.width / 2, 630);
+      cCtx.shadowColor = "transparent";
 
       // Footer
-      cCtx.fillStyle = '#8aab80';
-      cCtx.font = '24px "DM Sans"';
-      cCtx.fillText('gi28.site | Genuine. Fast. Affordable.', certCanvas.width / 2, 700);
-      cCtx.fillText(new Date().toLocaleDateString(), certCanvas.width / 2, 740);
+      cCtx.fillStyle = '#8aab80'; cCtx.font = '24px "DM Sans"';
+      cCtx.fillText('gi28.site | Genuine. Fast. Affordable.', certCanvas.width / 2, 720);
+      cCtx.fillText(new Date().toLocaleDateString(), certCanvas.width / 2, 755);
 
-      // Download
+      // Trigger Download
       const link = document.createElement('a');
-      link.download = `GI28-Score-${score}.png`;
+      link.download = `GI28-${playerName.replace(/\s+/g, '-')}-Record.png`;
       link.href = certCanvas.toDataURL('image/png', 1.0);
       link.click();
     }
@@ -621,7 +573,7 @@
     document.getElementById('restart-btn').addEventListener('click', startGame);
     document.getElementById('download-btn').addEventListener('click', generateCertificate);
 
-    // Initial draw to fill canvas background
+    // Initial draw
     ctx.fillStyle = '#1A2517';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   </script>
