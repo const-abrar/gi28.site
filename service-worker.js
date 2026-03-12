@@ -1,5 +1,5 @@
 /* GI28 Service Worker v1.0 */
-const CACHE_NAME = 'gi28-v1';
+const CACHE_NAME = 'gi28smm-v2';
 const OFFLINE_URL = '/offline.html';
 
 const PRECACHE_ASSETS = [
