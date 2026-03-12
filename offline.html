@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <meta name="theme-color" content="#1A2517"/>
+  <title>Offline | GI28</title>
+  <meta name="description" content="You are currently offline. Check your connection."/>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ── GI28 Theme Core ── */
+    :root {
+      --sage:        #ACC8A2;
+      --sage-light:  #c3d9bb;
+      --deep-olive:  #1A2517;
+      --burgundy:    #5C0120;
+      --cream:       #f0ede6;
+      --font-serif:  'Playfair Display', Georgia, serif;
+      --font-sans:   'DM Sans', system-ui, -apple-system, sans-serif;
+      --radius-md:   0.75rem;
+      --radius-lg:   1.25rem;
+      --glass-border: rgba(92, 1, 32, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--deep-olive);
+      background: var(--sage);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: clamp(10px, 3vw, 40px);
+    }
+
+    /* Paper Texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: multiply;
+    }
+
+    /* Animated Blobs */
+    .bg-blobs { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+    .bg-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; animation: float 20s infinite alternate ease-in-out; }
+    .bg-blob--1 { width: 45vw; height: 45vw; background: #b8d4ae; top: -10vw; left: -10vw; }
+    .bg-blob--2 { width: 40vw; height: 40vw; background: #c8dcc3; bottom: -10vw; right: -10vw; animation-delay: -5s; }
+
+    /* Main Container */
+    .offline-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 950px;
+      background: rgba(240, 237, 230, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: clamp(20px, 4vw, 40px);
+      box-shadow: 0 25px 50px -12px rgba(26, 37, 23, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    @media (min-width: 800px) {
+      .offline-container { flex-direction: row; align-items: center; }
+      .offline-header { flex: 1; text-align: left; }
+      .game-section { flex: 1.3; border-left: 1px solid rgba(92, 1, 32, 0.15); padding-left: 30px; }
+    }
+
+    .offline-header { text-align: center; }
+    
+    .icon-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background: rgba(92, 1, 32, 0.1);
+      border-radius: 50%;
+      color: var(--burgundy);
+      margin-bottom: 20px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(92, 1, 32, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(92, 1, 32, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(92, 1, 32, 0); }
+    }
+
+    .offline-header h1 { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3.5rem); color: var(--deep-olive); line-height: 1.1; margin-bottom: 10px; }
+    .offline-header p { font-size: 1.1rem; color: rgba(26, 37, 23, 0.7); margin-bottom: 30px; line-height: 1.6; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      white-space: nowrap;
+      text-decoration: none;
+      width: 100%;
+      max-width: 250px;
+    }
+
+    .btn:active { transform: scale(0.95); }
+    .btn--primary { background: var(--deep-olive); color: var(--sage-light); box-shadow: 0 4px 15px rgba(26, 37, 23, 0.2); }
+    .btn--primary:hover { background: var(--burgundy); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(92, 1, 32, 0.3); }
+
+    .status-text {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      color: var(--burgundy);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    @media (min-width: 800px) { .status-text { justify-content: flex-start; } }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(92, 1, 32, 0.3);
+      border-top-color: var(--burgundy);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Game Section */
+    .game-section { width: 100%; }
+    .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .game-title { font-family: var(--font-serif); font-weight: 700; color: var(--deep-olive); font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+    .game-stats { font-weight: 600; color: var(--burgundy); background: rgba(92, 1, 32, 0.1); padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid rgba(92, 1, 32, 0.2); }
+
+    /* Canvas Container */
+    #game-container {
+      position: relative;
+      width: 100%;
+      background: var(--deep-olive);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--glass-border);
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 10px 20px rgba(26, 37, 23, 0.2);
+      aspect-ratio: 16/9; 
+    }
+
+    canvas { display: block; width: 100%; height: 100%; touch-action: none; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 37, 23, 0.85);
+      backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--cream);
+      z-index: 10;
+      transition: opacity 0.3s ease;
+      text-align: center;
+      padding: 20px;
+    }
+    .game-overlay.hidden { opacity: 0; pointer-events: none; }
+    .game-overlay h3 { font-family: var(--font-serif); font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 10px; color: var(--sage-light); }
+    .game-overlay p { margin-bottom: 20px; font-size: 1.1rem; color: rgba(240, 237, 230, 0.8); }
+
+  </style>
+</head>
+<body>
+
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="bg-blob bg-blob--1"></div>
+    <div class="bg-blob bg-blob--2"></div>
+  </div>
+
+  <div class="offline-container">
+    <div class="offline-header">
+      <div class="icon-wrapper">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+          <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+          <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+          <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+          <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+          <line x1="12" y1="20" x2="12.01" y2="20"></line>
+        </svg>
+      </div>
+      <h1>Connection Lost</h1>
+      <p>It seems you've wandered into an offline zone. We are waiting for your network to return so we can load your digital services.</p>
+      
+      <button onclick="window.location.reload()" class="btn btn--primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+        Try Reconnecting
+      </button>
+
+      <div class="status-text">
+        <div class="spinner"></div>
+        Waiting for network...
+      </div>
+    </div>
+
+    <div class="game-section">
+      <div class="game-header">
+        <div class="game-title">CONNECTION JUMPER</div>
+        <div class="game-stats">
+          High Score: <span id="highScoreDisplay">0</span> &nbsp;|&nbsp; Score: <span id="scoreDisplay">0</span>
+        </div>
+      </div>
+
+      <div id="game-container">
+        <div id="start-screen" class="game-overlay">
+          <h3 id="overlay-title">Tap to Jump</h3>
+          <p id="overlay-desc">Dodge the offline errors while you wait!</p>
+          <button id="start-btn" class="btn btn--primary" style="background: var(--burgundy); border-color: var(--burgundy);">Start Game</button>
+        </div>
+
+        <canvas id="gameCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Network Listener ---
+    // Automatically reloads the page the second the device reconnects to Wi-Fi/Cellular
+    window.addEventListener('online', () => {
+      document.querySelector('.status-text').innerHTML = '<span style="color:var(--deep-olive)">Back online! Refreshing...</span>';
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    });
+
+    // --- Game Engine ---
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const gameContainer = document.getElementById('game-container');
+    
+    const startScreen = document.getElementById('start-screen');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const highScoreDisplay = document.getElementById('highScoreDisplay');
+    const titleText = document.getElementById('overlay-title');
+    const descText = document.getElementById('overlay-desc');
+    
+    let logicalWidth, logicalHeight;
+    let animationId;
+    let isPlaying = false;
+    let score = 0;
+    let highScore = localStorage.getItem('gi28_offline_highscore') || 0;
+    let frameCount = 0;
+    let gameSpeed = 5;
+
+    highScoreDisplay.innerText = highScore;
+
+    // Player Entity
+    const player = {
+      x: 50, y: 0, width: 30, height: 30,
+      vy: 0, gravity: 0.6, jumpPower: -10,
+      isGrounded: false, color: '#c3d9bb'
+    };
+
+    let obstacles = [];
+    let groundY;
+
+    function resizeCanvas() {
+      const rect = gameContainer.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      logicalWidth = rect.width;
+      logicalHeight = rect.height;
+      ctx.scale(dpr, dpr);
+
+      groundY = logicalHeight - 30;
+      if (!isPlaying) {
+        player.y = groundY - player.height;
+        drawStatic();
+      }
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    // Controls
+    function jump() {
+      if (isPlaying && player.isGrounded) {
+        player.vy = player.jumpPower;
+        player.isGrounded = false;
+      } else if (!isPlaying) {
+        startGame();
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.code === 'ArrowUp') jump();
+    });
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); jump(); }, {passive: false});
+    canvas.addEventListener('mousedown', jump);
+
+    function spawnObstacle() {
+      const minHeight = 20;
+      const maxHeight = 50;
+      const height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+      
+      obstacles.push({
+        x: logicalWidth,
+        y: groundY - height,
+        width: 20,
+        height: height,
+        color: '#5C0120' // Burgundy error spikes
+      });
+    }
+
+    function updateEntities() {
+      // Player Physics
+      player.vy += player.gravity;
+      player.y += player.vy;
+
+      if (player.y + player.height >= groundY) {
+        player.y = groundY - player.height;
+        player.vy = 0;
+        player.isGrounded = true;
+      }
+
+      // Draw Ground
+      ctx.fillStyle = 'rgba(172, 200, 162, 0.2)';
+      ctx.fillRect(0, groundY, logicalWidth, logicalHeight - groundY);
+      ctx.beginPath();
+      ctx.moveTo(0, groundY);
+      ctx.lineTo(logicalWidth, groundY);
+      ctx.strokeStyle = '#ACC8A2';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Draw Player
+      ctx.fillStyle = player.color;
+      ctx.shadowColor = player.color;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.roundRect(player.x, player.y, player.width, player.height, 6);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      
+      // Little face/plus on player
+      ctx.fillStyle = '#1A2517';
+      ctx.font = 'bold 16px "DM Sans"';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('+', player.x + player.width/2, player.y + player.height/2);
+
+      // Obstacles
+      for (let i = 0; i < obstacles.length; i++) {
+        let obs = obstacles[i];
+        obs.x -= gameSpeed;
+
+        // Draw Error Spike
+        ctx.fillStyle = obs.color;
+        ctx.beginPath();
+        ctx.moveTo(obs.x + obs.width/2, obs.y); // Peak
+        ctx.lineTo(obs.x + obs.width, obs.y + obs.height);
+        ctx.lineTo(obs.x, obs.y + obs.height);
+        ctx.fill();
+
+        // Collision Check (AABB with slight leniency)
+        if (player.x < obs.x + obs.width - 5 &&
+            player.x + player.width - 5 > obs.x &&
+            player.y < obs.y + obs.height &&
+            player.y + player.height > obs.y + 5) {
+          endGame();
+        }
+
+        if (obs.x + obs.width < 0) {
+          obstacles.splice(i, 1);
+          i--;
+          score += 10;
+          scoreDisplay.innerText = score;
+        }
+      }
+
+      // Difficulty scaling
+      if (frameCount % 600 === 0 && gameSpeed < 12) {
+        gameSpeed += 0.5; 
+      }
+    }
+
+    function update() {
+      if (!isPlaying) return;
+      ctx.clearRect(0, 0, logicalWidth, logicalHeight);
+      
+      frameCount++;
+      // Spawn logic
+      if (frameCount % Math.floor(Math.random() * 60 + 80) === 0) {
+        spawnObstacle();
+      }
+
+      updateEntities();
+      animationId = requestAnimationFrame(update);
+    }
+
+    function startGame() {
+      startScreen.classList.add('hidden');
+      score = 0;
+      frameCount = 0;
+      gameSpeed = 5;
+      obstacles = [];
+      scoreDisplay.innerText = score;
+      
+      player.y = groundY - player.height;
+      player.vy = 0;
+
+      isPlaying = true;
+      update();
+    }
+
+    function endGame() {
+      isPlaying = false;
+      cancelAnimationFrame(animationId);
+      
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('gi28_offline_highscore', highScore);
+        highScoreDisplay.innerText = highScore;
+      }
+
+      titleText.innerText = "Game Over!";
+      descText.innerText = `You scored ${score} points.`;
+      document.getElementById('start-btn').innerText = "Try Again";
+      startScreen.classList.remove('hidden');
+    }
+
+    function drawStatic() {
+      ctx.fillStyle = '#1A2517';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Init
+    resizeCanvas();
+    drawStatic();
+    document.getElementById('start-btn').addEventListener('click', startGame);
+
+  </script>
+</body>
+</html>
