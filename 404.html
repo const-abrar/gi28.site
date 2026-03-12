@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <meta name="theme-color" content="#1A2517"/>
+  <title>404 - Page Not Found | GI28</title>
+  <meta name="description" content="Oops! This page is lost in the digital void."/>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ── GI28 Theme Core ── */
+    :root {
+      --sage:        #ACC8A2;
+      --sage-light:  #c3d9bb;
+      --deep-olive:  #1A2517;
+      --burgundy:    #5C0120;
+      --cream:       #f0ede6;
+      --gold:        #D4AF37;
+      --font-serif:  'Playfair Display', Georgia, serif;
+      --font-sans:   'DM Sans', system-ui, -apple-system, sans-serif;
+      --radius-md:   0.75rem;
+      --radius-lg:   1.25rem;
+      --glass-bg:    rgba(26, 37, 23, 0.75);
+      --glass-border: rgba(92, 1, 32, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--deep-olive);
+      background: var(--sage);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: clamp(10px, 3vw, 40px);
+    }
+
+    /* Paper Texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: multiply;
+    }
+
+    /* Animated Blobs */
+    .bg-blobs { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+    .bg-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; animation: float 20s infinite alternate ease-in-out; }
+    .bg-blob--1 { width: 45vw; height: 45vw; background: #b8d4ae; top: -10vw; left: -10vw; }
+    .bg-blob--2 { width: 40vw; height: 40vw; background: #c8dcc3; bottom: -10vw; right: -10vw; animation-delay: -5s; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5vw, -5vw) scale(1.1); }
+    }
+
+    /* Main Container */
+    .error-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 900px;
+      background: rgba(240, 237, 230, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: clamp(20px, 4vw, 40px);
+      box-shadow: 0 25px 50px -12px rgba(26, 37, 23, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* Desktop Layout Grid */
+    @media (min-width: 800px) {
+      .error-container {
+        flex-direction: row;
+        align-items: center;
+      }
+      .error-header {
+        flex: 1;
+        text-align: left;
+      }
+      .game-section {
+        flex: 1.2;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        border-left: 1px solid rgba(92, 1, 32, 0.15);
+        padding-left: 30px;
+      }
+    }
+
+    .error-header { text-align: center; }
+    @media (min-width: 800px) { .error-header { text-align: left; } }
+
+    .error-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(4rem, 8vw, 6rem);
+      color: var(--burgundy);
+      line-height: 1;
+      margin-bottom: 10px;
+      text-shadow: 0 4px 10px rgba(92, 1, 32, 0.2);
+    }
+
+    .error-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--deep-olive);
+      margin-bottom: 20px;
+    }
+
+    .error-header p {
+      font-size: 1.1rem;
+      color: rgba(26, 37, 23, 0.7);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      white-space: nowrap;
+    }
+
+    .btn:active { transform: scale(0.95); }
+
+    .btn--primary { background: var(--deep-olive); color: var(--sage-light); box-shadow: 0 4px 15px rgba(26, 37, 23, 0.2); }
+    .btn--primary:hover { background: var(--burgundy); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(92, 1, 32, 0.3); }
+    
+    .btn--secondary { background: transparent; color: var(--burgundy); border-color: var(--burgundy); }
+    .btn--secondary:hover { background: rgba(92, 1, 32, 0.05); transform: translateY(-3px); }
+
+    /* Game Section */
+    .game-section { width: 100%; }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .game-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--deep-olive);
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    }
+
+    .game-stats {
+      font-weight: 600;
+      color: var(--burgundy);
+      background: rgba(92, 1, 32, 0.1);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(92, 1, 32, 0.2);
+    }
+
+    /* Responsive Canvas Container */
+    #game-container {
+      position: relative;
+      width: 100%;
+      background: var(--deep-olive);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--glass-border);
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 10px 20px rgba(26, 37, 23, 0.2);
+      /* Fluid aspect ratio: tall on mobile, wide on desktop */
+      aspect-ratio: 3/4; 
+    }
+
+    @media (min-width: 600px) {
+      #game-container { aspect-ratio: 16/10; }
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      touch-action: none; /* Crucial for mobile gaming */
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 37, 23, 0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--cream);
+      z-index: 10;
+      transition: opacity 0.3s ease;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .game-overlay.hidden { 
+      opacity: 0; 
+      pointer-events: none; 
+    }
+    
+    .game-overlay h3 { 
+      font-family: var(--font-serif); 
+      font-size: clamp(1.8rem, 4vw, 2.5rem); 
+      margin-bottom: 10px; 
+      color: var(--sage-light); 
+    }
+    
+    .game-overlay p { 
+      margin-bottom: 25px; 
+      font-size: 1.1rem; 
+      color: rgba(240, 237, 230, 0.8);
+    }
+
+    .legend {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      font-size: 0.85rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  </style>
+</head>
+<body>
+
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="bg-blob bg-blob--1"></div>
+    <div class="bg-blob bg-blob--2"></div>
+  </div>
+
+  <div class="error-container">
+    <div class="error-header">
+      <h1>404</h1>
+      <h2>Lost in the Void</h2>
+      <p>The service or page you are looking for has been moved, deleted, or doesn't exist.</p>
+      <a href="/" class="btn btn--primary" style="width: 100%; max-width: 250px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Homepage
+      </a>
+    </div>
+
+    <div class="game-section">
+      <div class="game-header">
+        <div class="game-title">CATCH A FOLLOWER</div>
+        <div class="game-stats">
+          <span id="timeDisplay">60</span>s &nbsp;|&nbsp; Score: <span id="scoreDisplay">0</span>
+        </div>
+      </div>
+
+      <div id="game-container">
+        <div id="start-screen" class="game-overlay">
+          <h3>Mini Game</h3>
+          <p>Drag the basket. Catch followers. Avoid Spam Bots!</p>
+          
+          <div class="legend">
+            <div class="legend-item"><div class="dot" style="background: var(--sage-light);"></div> +1</div>
+            <div class="legend-item"><div class="dot" style="background: var(--gold);"></div> +5 Premium</div>
+            <div class="legend-item"><div class="dot" style="background: var(--burgundy);"></div> -3 Bot</div>
+          </div>
+
+          <button id="start-btn" class="btn btn--primary" style="background: var(--burgundy); border-color: var(--burgundy);">Play Now</button>
+        </div>
+
+        <div id="end-screen" class="game-overlay hidden">
+          <h3>Time's Up!</h3>
+          <p>You secured <strong id="final-score" style="color:var(--gold); font-size: 1.5rem;">0</strong> points!</p>
+          <div style="display:flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+            <button id="download-btn" class="btn btn--primary">Get Certificate</button>
+            <button id="restart-btn" class="btn btn--secondary" style="color:var(--sage-light); border-color:var(--sage-light);">Play Again</button>
+          </div>
+        </div>
+
+        <canvas id="gameCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const gameContainer = document.getElementById('game-container');
+    
+    // UI Elements
+    const startScreen = document.getElementById('start-screen');
+    const endScreen = document.getElementById('end-screen');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    
+    // Variables
+    let logicalWidth, logicalHeight;
+    let animationId, gameTimerId, spawnTimerId;
+    let isPlaying = false;
+    let score = 0;
+    let timeLeft = 60;
+    
+    // Entities
+    const basket = { 
+      x: 0, 
+      targetX: 0, // Used for smooth lerping
+      y: 0, 
+      width: 90, 
+      height: 25, 
+      color: '#c3d9bb' // Sage Light
+    };
+    
+    let items = [];
+    let particles = [];
+
+    // --- DPI-Aware Responsive Canvas Setup ---
+    function resizeCanvas() {
+      const rect = gameContainer.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      
+      logicalWidth = rect.width;
+      logicalHeight = rect.height;
+      
+      ctx.scale(dpr, dpr);
+
+      // Keep basket grounded
+      basket.y = logicalHeight - basket.height - 10;
+      if(!isPlaying && basket.targetX === 0) {
+        basket.targetX = logicalWidth / 2 - basket.width / 2;
+        basket.x = basket.targetX;
+      }
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas(); // Init
+
+    // --- Smooth Input Handling ---
+    function setTarget(clientX) {
+      const rect = canvas.getBoundingClientRect();
+      // Calculate touch point relative to logical width
+      let x = (clientX - rect.left) - (basket.width / 2);
+      
+      // Clamp
+      if (x < 0) x = 0;
+      if (x + basket.width > logicalWidth) x = logicalWidth - basket.width;
+      basket.targetX = x;
+    }
+
+    canvas.addEventListener('mousemove', (e) => setTarget(e.clientX));
+    canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault(); 
+      setTarget(e.touches[0].clientX);
+    }, { passive: false });
+    canvas.addEventListener('touchstart', (e) => {
+      setTarget(e.touches[0].clientX);
+    }, { passive: true });
+
+    // --- Game Logic ---
+    function spawnItem() {
+      const radius = 16;
+      const x = Math.random() * (logicalWidth - radius * 2) + radius;
+      
+      // Speed scales up as time runs out
+      const speedMultiplier = 1 + ((60 - timeLeft) / 40);
+      let dy = (Math.random() * 2.5 + 2) * speedMultiplier; 
+      
+      const rand = Math.random();
+      let type, color, points, symbol;
+
+      if (rand > 0.85) {
+        // Premium
+        type = 'premium'; color = '#D4AF37'; points = 5; symbol = '★'; dy *= 1.3;
+      } else if (rand > 0.65) {
+        // Spam Bot
+        type = 'bot'; color = '#5C0120'; points = -3; symbol = '☠';
+      } else {
+        // Normal
+        type = 'normal'; color = '#ACC8A2'; points = 1; symbol = '+';
+      }
+
+      items.push({ x, y: -radius, radius: type==='premium'?12:radius, dy, type, color, points, symbol, wobble: Math.random() * Math.PI });
+    }
+
+    function createParticles(x, y, color) {
+      for (let i = 0; i < 10; i++) {
+        particles.push({
+          x, y,
+          vx: (Math.random() - 0.5) * 6,
+          vy: (Math.random() - 0.5) * 6,
+          life: 1,
+          color
+        });
+      }
+    }
+
+    function drawBasket() {
+      // Lerp (smooth follow)
+      basket.x += (basket.targetX - basket.x) * 0.15;
+
+      ctx.fillStyle = basket.color;
+      ctx.shadowColor = basket.color;
+      ctx.shadowBlur = 10;
+      
+      ctx.beginPath();
+      ctx.roundRect(basket.x, basket.y, basket.width, basket.height, 12);
+      ctx.fill();
+      
+      ctx.shadowBlur = 0; // Reset
+      ctx.fillStyle = '#1A2517';
+      ctx.font = 'bold 13px "DM Sans"';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('GI28', basket.x + basket.width/2, basket.y + basket.height/2);
+    }
+
+    function updateEntities() {
+      // Items
+      for (let i = 0; i < items.length; i++) {
+        let f = items[i];
+        
+        // Wobble effect for bots
+        if(f.type === 'bot') f.x += Math.sin(f.wobble += 0.1) * 1.5;
+
+        // Draw
+        ctx.fillStyle = f.color;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.fillStyle = f.type === 'normal' ? '#1A2517' : '#fff';
+        ctx.font = 'bold 14px "DM Sans"';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(f.symbol, f.x, f.y + 1);
+
+        f.y += f.dy;
+
+        // Collision
+        if (f.y + f.radius > basket.y && f.y - f.radius < basket.y + basket.height &&
+            f.x + f.radius > basket.x && f.x - f.radius < basket.x + basket.width) {
+          
+          score += f.points;
+          createParticles(f.x, f.y, f.color);
+          
+          // Flash effect on score
+          scoreDisplay.style.color = f.points < 0 ? 'red' : '#D4AF37';
+          setTimeout(() => scoreDisplay.style.color = '', 300);
+          
+          scoreDisplay.innerText = score;
+          items.splice(i, 1);
+          i--;
+        } 
+        else if (f.y - f.radius > logicalHeight) {
+          items.splice(i, 1);
+          i--;
+        }
+      }
+
+      // Particles
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.2; // Gravity
+        p.life -= 0.04;
+
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          i--;
+        }
+      }
+    }
+
+    function update() {
+      if (!isPlaying) return;
+      
+      // Clear with slight trail effect
+      ctx.fillStyle = 'rgba(26, 37, 23, 0.4)';
+      ctx.fillRect(0, 0, logicalWidth, logicalHeight);
+
+      drawBasket();
+      updateEntities();
+
+      animationId = requestAnimationFrame(update);
+    }
+
+    function startGame() {
+      startScreen.classList.add('hidden');
+      endScreen.classList.add('hidden');
+      
+      score = 0;
+      timeLeft = 60;
+      items = [];
+      particles = [];
+      scoreDisplay.innerText = score;
+      timeDisplay.innerText = timeLeft;
+      scoreDisplay.style.color = '';
+      
+      // Reset basket to finger position if already touching
+      basket.x = basket.targetX;
+      
+      isPlaying = true;
+      update();
+
+      spawnTimerId = setInterval(spawnItem, 650);
+      gameTimerId = setInterval(() => {
+        timeLeft--;
+        timeDisplay.innerText = timeLeft;
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+    }
+
+    function endGame() {
+      isPlaying = false;
+      cancelAnimationFrame(animationId);
+      clearInterval(spawnTimerId);
+      clearInterval(gameTimerId);
+      
+      document.getElementById('final-score').innerText = score;
+      endScreen.classList.remove('hidden');
+    }
+
+    // --- Premium Certificate Generator ---
+    function generateCertificate() {
+      const certCanvas = document.createElement('canvas');
+      const cCtx = certCanvas.getContext('2d');
+      certCanvas.width = 1200;
+      certCanvas.height = 800;
+
+      // BG
+      cCtx.fillStyle = '#f0ede6';
+      cCtx.fillRect(0, 0, certCanvas.width, certCanvas.height);
+      
+      // Borders
+      cCtx.strokeStyle = '#5C0120';
+      cCtx.lineWidth = 15;
+      cCtx.strokeRect(30, 30, certCanvas.width - 60, certCanvas.height - 60);
+      cCtx.strokeStyle = '#ACC8A2';
+      cCtx.lineWidth = 4;
+      cCtx.strokeRect(50, 50, certCanvas.width - 100, certCanvas.height - 100);
+
+      // Watermark
+      cCtx.fillStyle = 'rgba(172, 200, 162, 0.15)';
+      cCtx.font = 'bold 300px "DM Sans"';
+      cCtx.textAlign = 'center';
+      cCtx.textBaseline = 'middle';
+      cCtx.fillText('GI28', certCanvas.width/2, certCanvas.height/2);
+
+      // Content
+      cCtx.fillStyle = '#1A2517';
+      cCtx.font = 'bold 50px "Playfair Display"';
+      cCtx.fillText('GI28 PREMIUM SMM PANEL', certCanvas.width / 2, 180);
+
+      cCtx.fillStyle = '#5C0120';
+      cCtx.font = 'bold 30px "DM Sans"';
+      cCtx.letterSpacing = "5px";
+      cCtx.fillText('OFFICIAL ACHIEVEMENT RECORD', certCanvas.width / 2, 250);
+
+      cCtx.fillStyle = '#1A2517';
+      cCtx.font = 'italic 36px "Playfair Display"';
+      cCtx.fillText('For exceptional reflexes traversing the digital void,', certCanvas.width / 2, 380);
+      cCtx.fillText('this certificate is proudly awarded for securing:', certCanvas.width / 2, 440);
+
+      cCtx.fillStyle = '#D4AF37';
+      cCtx.font = 'bold 120px "DM Sans"';
+      cCtx.shadowColor = "rgba(0,0,0,0.2)";
+      cCtx.shadowOffsetX = 4; cCtx.shadowOffsetY = 4;
+      cCtx.fillText(`${score} POINTS`, certCanvas.width / 2, 580);
+      cCtx.shadowColor = "transparent"; // reset
+
+      // Footer
+      cCtx.fillStyle = '#8aab80';
+      cCtx.font = '24px "DM Sans"';
+      cCtx.fillText('gi28.site | Genuine. Fast. Affordable.', certCanvas.width / 2, 700);
+      cCtx.fillText(new Date().toLocaleDateString(), certCanvas.width / 2, 740);
+
+      // Download
+      const link = document.createElement('a');
+      link.download = `GI28-Score-${score}.png`;
+      link.href = certCanvas.toDataURL('image/png', 1.0);
+      link.click();
+    }
+
+    document.getElementById('start-btn').addEventListener('click', startGame);
+    document.getElementById('restart-btn').addEventListener('click', startGame);
+    document.getElementById('download-btn').addEventListener('click', generateCertificate);
+
+    // Initial draw to fill canvas background
+    ctx.fillStyle = '#1A2517';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  </script>
+</body>
+</html>
