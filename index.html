@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#1A2517"/>
+  <meta name="description" content="GI28 — Cheapest digital services marketplace. Instagram, YouTube, Telegram, Facebook growth services. Fast, secure, genuine."/>
+  <meta name="keywords" content="instagram followers, youtube subscribers, telegram members, social media services, cheap smm panel"/>
+  <meta property="og:title" content="GI28 — Digital Services Marketplace"/>
+  <meta property="og:description" content="Cheapest Deals | Limited Time Offer | Fast and Secure | Genuine Services"/>
+  <meta property="og:url" content="https://gi28.site"/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary"/>
+  <title>GI28 — Digital Services Marketplace</title>
+  <link rel="manifest" href="/manifest.json"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+
+<!-- Background blobs -->
+<div class="bg-blobs" aria-hidden="true">
+  <div class="bg-blob bg-blob--1"></div>
+  <div class="bg-blob bg-blob--2"></div>
+  <div class="bg-blob bg-blob--3"></div>
+</div>
+
+<div id="app">
+
+  <!-- ── Topbar ── -->
+
+  <!-- ── Header ── -->
+  <header class="header" role="banner">
+    <div class="header__logo">
+      GI28
+   </div>
+
+    <div class="header__search" role="search" style="position:relative">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" id="search-input" placeholder="Search services…" autocomplete="off" aria-label="Search services"/>
+      <div id="search-results" class="search-results" role="listbox" aria-label="Search results"></div>
+    </div>
+
+
+
+    <div class="header__actions">
+      <a href="/cart/" class="btn-icon" title="View Cart" aria-label="View cart">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-badge" aria-live="polite" style="display:none">0</span>
+      </a>
+
+      <button id="cart-toggle" class="btn-icon" title="Cart Preview" aria-label="Open cart preview" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <span class="cart-badge" aria-live="polite" style="display:none">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Page Layout ── -->
+  <div class="page-layout">
+
+    <!-- ── Sidebar ── -->
+    <nav id="sidebar" class="sidebar" aria-label="Service categories"></nav>
+
+    <!-- ── Main ── -->
+    <main class="main-content" id="main-content">
+
+      <!-- Hero -->
+      <div class="hero-banner" role="banner">
+  
+        <h1 class="hero-banner__title">
+    GI28 Premium SMM Panel – Quality Services at cheap price 
+        </h1>
+        <p class="hero-banner__sub">
+          Genuine, fast, and affordable SMM PANEL.<br/>
+          Trusted by thousands of creators &amp; businesses.
+        </p>
+       </div>
+
+      <!-- Services Grid -->
+      <div id="services-container">
+        <!-- Injected by app.js -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap;padding:24px 0">
+          <!-- Skeleton tiles -->
+          <div class="service-tile skeleton" style="opacity:0.4"></div>
+          <div class="service-tile skeleton" style="opacity:0.4"></div>
+          <div class="service-tile skeleton" style="opacity:0.4"></div>
+          <div class="service-tile skeleton" style="opacity:0.4"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ── Cart Sidebar ── -->
+  <aside id="cart-sidebar" class="cart-sidebar" role="complementary" aria-label="Cart preview">
+    <div class="cart-sidebar__header">
+      <h2 class="cart-sidebar__title">Cart Preview</h2>
+      <button id="cart-close" class="cart-sidebar__close" aria-label="Close cart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="cart-sidebar-items" class="cart-sidebar__items"></div>
+
+    <div id="cart-sidebar-empty" class="cart-sidebar__empty" style="display:flex">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
+      <p>Your cart is empty.<br/>Add services to get started.</p>
+    </div>
+
+    <div id="cart-sidebar-footer" class="cart-sidebar__footer" style="display:none">
+      <div class="cart-sidebar__subtotal">
+        <span class="cart-sidebar__subtotal-label">Subtotal</span>
+        <span id="cart-sidebar-total" class="cart-sidebar__subtotal-amount">₹0.00</span>
+      </div>
+      <button id="go-to-cart" class="btn btn--primary btn--full">
+        View Full Cart
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Cart overlay -->
+  <div id="cart-overlay" onclick="GI28.closeCart()" style="position:fixed;inset:0;background:rgba(26,37,23,0.5);z-index:299;display:none"></div>
+
+</div><!-- #app -->
+
+<!-- ── Add to Cart Modal ── -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div id="add-modal" class="modal" data-service-id="">
+
+    <div class="modal__header">
+      <div>
+        <h2 class="modal__title" id="modal-title">Service Title</h2>
+        <div class="modal__category" id="modal-category">Category</div>
+      </div>
+      <button id="modal-close-btn" class="modal__close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal__body">
+  <div class="modal-service-desc" id="modal-description"></div>
+      <div class="form-group">
+        <label class="form-label" for="modal-qty">Quantity</label>
+        <input type="number" id="modal-qty" class="form-input" min="1" step="1" placeholder="Enter quantity"/>
+        <div class="form-hint" id="modal-qty-hint">Min: 100 / Max: 100,000</div>
+        <div class="form-error" id="modal-qty-error"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="modal-link">Target Link / Username</label>
+        <input type="text" id="modal-link" class="form-input" placeholder="https://... or @username"/>
+        <div class="form-hint">Enter the URL or username for this service</div>
+        <div class="form-error" id="modal-link-error"></div>
+      </div>
+
+      <div class="price-preview">
+        <div class="price-preview__row">
+          <span id="modal-unit-price">₹0 / 1000</span>
+          <span>×</span>
+          <span><span id="modal-qty-display">0</span> qty</span>
+        </div>
+        <div class="price-preview__total">
+          <span class="price-preview__total-label">Total</span>
+          <span class="price-preview__total-amount" id="modal-total">₹0.00</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal__footer">
+      <button id="modal-cancel" class="btn btn--secondary">Cancel</button>
+      <button id="modal-confirm" class="btn btn--primary">Add to Cart</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Floating Support Buttons ── -->
+<div class="float-support" aria-label="Support contacts">
+  <a href="https://wa.me/919583075623" target="_blank" rel="noopener" class="float-btn float-btn--wa" title="WhatsApp Support" aria-label="WhatsApp Support">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+    </svg>
+  </a>
+  <a href="https://t.me/Const_Abrar" target="_blank" rel="noopener" class="float-btn float-btn--tg" title="Telegram Support" aria-label="Telegram Support">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+    </svg>
+  </a>
+
+  <!-- Mobile cart button -->
+  <button id="cart-mobile-toggle" class="float-btn float-cart-mobile" aria-label="Open cart">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+    </svg>
+    <span class="cart-badge" style="display:none">0</span>
+  </button>
+</div>
+
+<!-- ── PWA Install Prompt ── -->
+<div id="install-prompt" class="install-prompt" role="dialog" aria-label="Install app">
+  <div class="install-prompt__icon">GI28</div>
+  <div class="install-prompt__text">
+    <div class="install-prompt__title">Install GI28 App?</div>
+    <div class="install-prompt__sub">Faster access, better experience</div>
+  </div>
+  <div class="install-prompt__actions">
+    <button id="install-btn" class="btn btn--primary btn--sm">Install</button>
+    <button id="install-dismiss" class="install-prompt__dismiss" aria-label="Dismiss">✕</button>
+  </div>
+</div>
+
+<!-- ── Toast Container ── -->
+<div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+<script src="/app.js"></script>
+<script>
+  // Cart overlay show/hide sync
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const cartOverlay = document.getElementById('cart-overlay');
+  const observer = new MutationObserver(() => {
+    cartOverlay.style.display = cartSidebar.classList.contains('open') ? 'block' : 'none';
+  });
+  observer.observe(cartSidebar, { attributes: true, attributeFilter: ['class'] });
+</script>
+</body>
+</html>
