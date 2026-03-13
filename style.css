@@ -51,7 +51,7 @@
   --header-h:     4.5rem; /* 72px */
   --sidebar-w:    clamp(200px, 20vw, 260px);
   --cart-w:       clamp(320px, 85vw, 400px);
-  --tile-size: clamp(320px, 32vw, 420px);
+  --tile-size: clamp(260px, 80vw, 360px);
   --tile-gap: var(--sp-lg);
   
   /* Refined Border Radii */
@@ -665,8 +665,7 @@ margin-inline:auto;
   display:flex;
   gap:var(--tile-gap);
   overflow-x:auto;
-  padding:10px 6px 18px 6px;
-  margin-inline:-6px;
+  padding:10px 0 18px 0;
   scroll-snap-type:x mandatory;
 }
 
