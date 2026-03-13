@@ -394,7 +394,6 @@ shortenLink(link) {
   const clean = link.replace(/^https?:\/\//, '');
   return clean.substring(0,3) + '...';
 },
-beforeinstallprompt
   /* ── Download Receipt ── */
   async downloadReceipt() {
     const receiptEl = document.getElementById('receipt-printable');
@@ -488,4 +487,6 @@ beforeinstallprompt
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => CartPage.init());
+window.addEventListener('load', () => {
+  CartPage.init();
+});
