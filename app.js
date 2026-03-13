@@ -42,10 +42,14 @@ const GI28 = {
   },
 
   loadCart() {
-    try {
-      this.cart = JSON.parse(localStorage.getItem('gi28_cart') || '[]');
-    } catch(e) { this.cart = []; }
-  },
+  try {
+    const stored = localStorage.getItem('gi28_cart');
+    this.cart = stored ? JSON.parse(stored) : [];
+  } catch(e) {
+    console.error('Cart parse error:', e);
+    this.cart = [];
+  }
+},
 
   saveCart() {
     localStorage.setItem('gi28_cart', JSON.stringify(this.cart));
@@ -225,7 +229,7 @@ renderTile(service) {
     const qty = parseInt(qtyEl.value) || 0;
     const total = (qty / 1000) * service.price;
     // Actually price per unit field
-    const unitMultiplier = this.getUnitMultiplier(service.unit);
+    const unitMultiplier = this.getUnitMultiplier(service.unit || '1');
     const calcTotal = (qty / unitMultiplier) * service.price;
     totalEl.textContent = `₹${calcTotal.toFixed(2)}`;
     if (qtyDisp) qtyDisp.textContent = qty.toLocaleString();
