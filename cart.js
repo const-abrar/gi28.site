@@ -326,7 +326,7 @@ const CartPage = {
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
 
     const payload = {
-      access_key: 'YOUR_WEB3FORMS_KEY', // Replace with actual key
+      access_key: 'cd17501d-8174-4f56-8c79-22f69b5a420f', // Replace with actual key
       subject: `New Order ${this.orderId} — GI28`,
       name: this.customerName,
       whatsapp: this.customerWa,
