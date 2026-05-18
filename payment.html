@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UPI Payment</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }body {
+  background: #e0e5ec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #e0e5ec;
+  border-radius: 30px;
+  padding: 35px 25px;
+  box-shadow:
+    10px 10px 20px #a3b1c6,
+    -10px -10px 20px #ffffff;
+  text-align: center;
+}
+
+h1 {
+  color: #444;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+p {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 15px;
+}
+
+.info-box {
+  background: #e0e5ec;
+  padding: 15px;
+  border-radius: 18px;
+  margin-bottom: 25px;
+  box-shadow:
+    inset 5px 5px 10px #bec8d2,
+    inset -5px -5px 10px #ffffff;
+  text-align: left;
+  color: #444;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  margin-bottom: 20px;
+  padding: 16px;
+  border-radius: 18px;
+  background: #e0e5ec;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow:
+    8px 8px 16px #a3b1c6,
+    -8px -8px 16px #ffffff;
+  transition: all 0.2s ease;
+}
+
+.btn:active {
+  box-shadow:
+    inset 5px 5px 10px #a3b1c6,
+    inset -5px -5px 10px #ffffff;
+  transform: scale(0.98);
+}
+
+.footer {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #777;
+}
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>UPI Payments</h1>
+    <p>Select a payment option below</p><div class="info-box">
+  <strong>UPI ID:</strong> constantabrar@upi<br>
+  <strong>Order Note:</strong> ODR-16GW82<br>
+  <strong>Merchant:</strong> Abrar Store
+</div>
+
+<!-- Prefilled Amount -->
+<a
+  class="btn"
+  href="upi://pay?pa=constantabrar@upi&pn=Abrar%20Store&tn=ODR-16GW82&am=99&cu=INR"
+>
+  Pay ₹99 Instantly
+</a>
+
+<!-- No Prefilled Amount -->
+<a
+  class="btn"
+  href="upi://pay?pa=constantabrar@upi&pn=Abrar%20Store&tn=ODR-16GW82&cu=INR"
+>
+  Enter Amount & Pay
+</a>
+
+<div class="footer">
+  Supports Google Pay, PhonePe, Paytm & BHIM
+</div>
+
+  </div>
+</body>
+</html>
