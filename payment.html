@@ -2,7 +2,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UPI Payment</title>
+  <title>UPI Payment Page</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -10,113 +11,209 @@
       box-sizing: border-box;
       font-family: Arial, sans-serif;
     }body {
+  min-height: 100vh;
   background: #e0e5ec;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   padding: 20px;
 }
 
-.card {
+.container {
   width: 100%;
   max-width: 420px;
-  background: #e0e5ec;
+  padding: 30px;
   border-radius: 30px;
-  padding: 35px 25px;
-  box-shadow:
-    10px 10px 20px #a3b1c6,
-    -10px -10px 20px #ffffff;
-  text-align: center;
+  background: #e0e5ec;
+  box-shadow: 12px 12px 24px #b8bec7,
+              -12px -12px 24px #ffffff;
 }
 
 h1 {
-  color: #444;
+  text-align: center;
   margin-bottom: 10px;
+  color: #444;
   font-size: 28px;
 }
 
 p {
+  text-align: center;
   color: #666;
   margin-bottom: 30px;
-  font-size: 15px;
-}
-
-.info-box {
-  background: #e0e5ec;
-  padding: 15px;
-  border-radius: 18px;
-  margin-bottom: 25px;
-  box-shadow:
-    inset 5px 5px 10px #bec8d2,
-    inset -5px -5px 10px #ffffff;
-  text-align: left;
-  color: #444;
-  line-height: 1.8;
   font-size: 14px;
 }
 
-.btn {
-  display: block;
-  width: 100%;
-  text-decoration: none;
+.card {
+  background: #e0e5ec;
+  padding: 20px;
+  border-radius: 24px;
+  margin-bottom: 25px;
+  box-shadow: inset 6px 6px 12px #c3c8cf,
+              inset -6px -6px 12px #fdffff;
+}
+
+.label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.amount {
+  text-align: center;
+  font-size: 34px;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 20px;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+button,
+a.pay-btn {
+  width: 100%;
   padding: 16px;
+  border: none;
   border-radius: 18px;
   background: #e0e5ec;
-  color: #333;
+  color: #444;
   font-size: 16px;
   font-weight: bold;
-  box-shadow:
-    8px 8px 16px #a3b1c6,
-    -8px -8px 16px #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 8px 8px 16px #b8bec7,
+              -8px -8px 16px #ffffff;
   transition: all 0.2s ease;
 }
 
-.btn:active {
-  box-shadow:
-    inset 5px 5px 10px #a3b1c6,
-    inset -5px -5px 10px #ffffff;
-  transform: scale(0.98);
+button:active,
+a.pay-btn:active {
+  box-shadow: inset 5px 5px 10px #b8bec7,
+              inset -5px -5px 10px #ffffff;
+}
+
+.qr-container {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 170px;
+}
+
+.info-box {
+  margin-top: 25px;
+  padding: 18px;
+  border-radius: 20px;
+  background: #e0e5ec;
+  box-shadow: inset 4px 4px 8px #c3c8cf,
+              inset -4px -4px 8px #fdffff;
+}
+
+.info-box div {
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 14px;
+  word-break: break-all;
 }
 
 .footer {
-  margin-top: 10px;
-  font-size: 12px;
+  text-align: center;
+  margin-top: 20px;
   color: #777;
+  font-size: 12px;
 }
 
   </style>
 </head>
 <body>
-  <div class="card">
+  <div class="container">
     <h1>UPI Payments</h1>
-    <p>Select a payment option below</p><div class="info-box">
-  <strong>UPI ID:</strong>coldtapan@ptyes<br>
-  <strong>Order Note:</strong> ODR-16GW82<br>
-  <strong>Merchant:</strong> Abrar Store
+    <p>Neumorphic UPI Payment Collection Page</p><div class="card">
+  <div class="label">Prefilled Amount Payment</div>
+  <div class="amount">₹99</div>
+
+  <div class="btn-group">
+    <a
+      class="pay-btn"
+      href="upi://pay?pa=constantabrar@upi&pn=AbrarStore&tn=ODR-16GW82&am=99&cu=INR"
+    >
+      Pay ₹99
+    </a>
+
+    <button onclick="generateQR('prefilled')">
+      Generate QR (₹99)
+    </button>
+  </div>
+
+  <div class="qr-container">
+    <div id="qrPrefilled"></div>
+  </div>
 </div>
 
-<!-- Prefilled Amount -->
-<a
-  class="btn"
-  href="upi://pay?pa=coldtapan@ptyes&pn=Abrar%20Store&tn=ODR-16GW82&am=1.3&cu=INR"
->
-  Pay ₹99 Instantly
-</a>
+<div class="card">
+  <div class="label">Custom Amount Payment</div>
+  <div class="amount">Any Amount</div>
 
-<!-- No Prefilled Amount -->
-<a
-  class="btn"
-  href="upi://pay?pa=coldtapan@ptyes&pn=Abrar%20Store&tn=ODR-16GW82&cu=INR"
->
-  Enter Amount & Pay
-</a>
+  <div class="btn-group">
+    <a
+      class="pay-btn"
+      href="upi://pay?pa=constantabrar@upi&pn=AbrarStore&tn=ODR-16GW82&cu=INR"
+    >
+      Pay Custom Amount
+    </a>
+
+    <button onclick="generateQR('custom')">
+      Generate QR (Custom)
+    </button>
+  </div>
+
+  <div class="qr-container">
+    <div id="qrCustom"></div>
+  </div>
+</div>
+
+<div class="info-box">
+  <div><strong>UPI ID:</strong> constantabrar@upi</div>
+  <div><strong>Order Note:</strong> ODR-16GW82</div>
+  <div><strong>Currency:</strong> INR</div>
+</div>
 
 <div class="footer">
-  Supports Google Pay, PhonePe, Paytm & BHIM
+  Built for direct UPI payment collection
 </div>
 
-  </div>
-</body>
+  </div>  <script>
+    const prefilledUPI =
+      'upi://pay?pa=constantabrar@upi&pn=AbrarStore&tn=ODR-16GW82&am=99&cu=INR';
+
+    const customUPI =
+      'upi://pay?pa=constantabrar@upi&pn=AbrarStore&tn=ODR-16GW82&cu=INR';
+
+    function generateQR(type) {
+      if (type === 'prefilled') {
+        document.getElementById('qrPrefilled').innerHTML = '';
+
+        new QRCode(document.getElementById('qrPrefilled'), {
+          text: prefilledUPI,
+          width: 160,
+          height: 160,
+        });
+      }
+
+      if (type === 'custom') {
+        document.getElementById('qrCustom').innerHTML = '';
+
+        new QRCode(document.getElementById('qrCustom'), {
+          text: customUPI,
+          width: 160,
+          height: 160,
+        });
+      }
+    }
+  </script></body>
 </html>
